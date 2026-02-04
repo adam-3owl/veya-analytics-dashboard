@@ -28,14 +28,14 @@ function formatEventName(name: string): string {
   return name.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function timeAgo(timestamp: string): string {
-  const diff = Date.now() - new Date(timestamp).getTime();
-  const seconds = Math.floor(diff / 1000);
-  if (seconds < 60) return `${seconds}s ago`;
-  const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes}m ago`;
-  const hours = Math.floor(minutes / 60);
-  return `${hours}h ago`;
+function formatTime(timestamp: string): string {
+  return new Date(timestamp).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+    timeZoneName: "short",
+  });
 }
 
 const eventColors: Record<string, string> = {
@@ -188,7 +188,7 @@ export default function LiveStream() {
                     {JSON.stringify(event)}
                   </td>
                   <td className="px-4 py-3 text-right text-xs text-muted whitespace-nowrap">
-                    {timeAgo(event.event_timestamp)}
+                    {formatTime(event.event_timestamp)}
                   </td>
                 </tr>
               ))
