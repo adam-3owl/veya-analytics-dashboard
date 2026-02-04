@@ -100,7 +100,7 @@ export default function Home() {
           </h2>
           <p className="mt-1 text-sm text-muted">
             {activeTab === "live-stream"
-              ? "Real-time event feed from your analytics"
+              ? "Real-time event feed from Veya Snowflake Warehouse (VEYA_ANALYTICS.CORE)"
               : "Browse and view analytics reports"}
           </p>
         </div>
