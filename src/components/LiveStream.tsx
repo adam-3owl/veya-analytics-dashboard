@@ -24,6 +24,17 @@ function normalizeKeys(obj: Record<string, any>): Record<string, any> {
   return result;
 }
 
+const platformLabels: Record<string, string> = {
+  ios: "iOS",
+  android: "Android",
+  web: "Web",
+};
+
+function platformLabel(value: string | undefined | null): string {
+  if (!value) return "Web";
+  return platformLabels[value.toLowerCase()] || value;
+}
+
 function formatEventName(name: string): string {
   return name.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
@@ -174,7 +185,7 @@ export default function LiveStream() {
                     {event.tenant_id}
                   </td>
                   <td className="px-4 py-3 text-xs text-muted">
-                    {event.platform === "app" ? "App" : "Web"}
+                    {platformLabel(event.platform)}
                   </td>
                   <td className="px-4 py-3">
                     <span
