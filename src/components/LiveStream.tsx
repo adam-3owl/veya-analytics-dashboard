@@ -29,7 +29,11 @@ function formatEventName(name: string): string {
 }
 
 function formatTime(timestamp: string): string {
-  return new Date(timestamp).toLocaleTimeString("en-US", {
+  // Snowflake timestamps are UTC but may lack a timezone suffix;
+  // append "Z" so JS parses them as UTC before converting to local time.
+  const utcTimestamp =
+    /[Z+\-]\d{0,4}$/.test(timestamp) ? timestamp : timestamp + "Z";
+  return new Date(utcTimestamp).toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
     second: "2-digit",
@@ -232,7 +236,7 @@ function SidePanel({
               {formatEventName(event.event_name)}
             </h3>
             <p className="mt-0.5 text-xs text-muted">
-              Tenant {event.tenant_id} &middot; {event.event_timestamp}
+              Tenant {event.tenant_id} &middot; {formatTime(event.event_timestamp)}
             </p>
           </div>
           <button
