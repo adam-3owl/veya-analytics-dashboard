@@ -39,12 +39,24 @@ function formatEventName(name: string): string {
   return name.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-function formatTime(timestamp: string): string {
+function parseUTC(timestamp: string): Date {
   // Snowflake timestamps are UTC but may lack a timezone suffix;
   // append "Z" so JS parses them as UTC before converting to local time.
   const utcTimestamp =
     /[Z+\-]\d{0,4}$/.test(timestamp) ? timestamp : timestamp + "Z";
-  return new Date(utcTimestamp).toLocaleTimeString("en-US", {
+  return new Date(utcTimestamp);
+}
+
+function formatDate(timestamp: string): string {
+  return parseUTC(timestamp).toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "2-digit",
+  });
+}
+
+function formatTime(timestamp: string): string {
+  return parseUTC(timestamp).toLocaleTimeString("en-US", {
     hour: "numeric",
     minute: "2-digit",
     second: "2-digit",
@@ -157,6 +169,9 @@ export default function LiveStream() {
                 Body
               </th>
               <th className="px-4 py-3 text-right font-medium text-muted">
+                Date
+              </th>
+              <th className="px-4 py-3 text-right font-medium text-muted">
                 Time
               </th>
             </tr>
@@ -164,13 +179,13 @@ export default function LiveStream() {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={6} className="px-4 py-12 text-center text-muted">
+                <td colSpan={7} className="px-4 py-12 text-center text-muted">
                   Loading events...
                 </td>
               </tr>
             ) : events.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-12 text-center text-muted">
+                <td colSpan={7} className="px-4 py-12 text-center text-muted">
                   No events yet
                 </td>
               </tr>
@@ -201,6 +216,9 @@ export default function LiveStream() {
                   </td>
                   <td className="hidden max-w-xs truncate px-4 py-3 font-mono text-xs text-muted md:table-cell">
                     {JSON.stringify(event)}
+                  </td>
+                  <td className="px-4 py-3 text-right text-xs text-muted whitespace-nowrap">
+                    {formatDate(event.event_timestamp)}
                   </td>
                   <td className="px-4 py-3 text-right text-xs text-muted whitespace-nowrap">
                     {formatTime(event.event_timestamp)}
