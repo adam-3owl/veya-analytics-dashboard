@@ -168,10 +168,10 @@ export default function LiveStream() {
               <th className="hidden px-4 py-3 font-medium text-muted md:table-cell">
                 Body
               </th>
-              <th className="px-4 py-3 text-right font-medium text-muted">
+              <th className="px-4 py-3 font-medium text-muted">
                 Date
               </th>
-              <th className="px-4 py-3 text-right font-medium text-muted">
+              <th className="px-4 py-3 font-medium text-muted">
                 Time
               </th>
             </tr>
@@ -217,10 +217,10 @@ export default function LiveStream() {
                   <td className="hidden max-w-xs truncate px-4 py-3 font-mono text-xs text-muted md:table-cell">
                     {JSON.stringify(event)}
                   </td>
-                  <td className="px-4 py-3 text-right text-xs text-muted whitespace-nowrap">
+                  <td className="px-4 py-3 text-xs text-muted whitespace-nowrap">
                     {formatDate(event.event_timestamp)}
                   </td>
-                  <td className="px-4 py-3 text-right text-xs text-muted whitespace-nowrap">
+                  <td className="px-4 py-3 text-xs text-muted whitespace-nowrap">
                     {formatTime(event.event_timestamp)}
                   </td>
                 </tr>
