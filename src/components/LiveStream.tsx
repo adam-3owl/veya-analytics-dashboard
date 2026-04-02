@@ -197,7 +197,7 @@ export default function LiveStream() {
                   className="border-b border-border last:border-0 cursor-pointer transition-colors hover:bg-surface-hover"
                 >
                   <td className="px-4 py-3 font-mono text-xs text-muted">
-                    {event.tenant_id}
+                    {event.tenant_slug}
                   </td>
                   <td className="px-4 py-3 text-xs text-muted">
                     {platformLabel(event.platform)}
@@ -214,7 +214,7 @@ export default function LiveStream() {
                   <td className="hidden px-4 py-3 font-mono text-xs text-muted sm:table-cell">
                     {event.session_id?.slice(0, 8)}...
                   </td>
-                  <td className="hidden max-w-xs truncate px-4 py-3 font-mono text-xs text-muted md:table-cell">
+                  <td className="hidden px-4 py-3 font-mono text-xs text-muted md:table-cell whitespace-pre-wrap break-words">
                     {JSON.stringify(event)}
                   </td>
                   <td className="px-4 py-3 text-xs text-muted whitespace-nowrap">
