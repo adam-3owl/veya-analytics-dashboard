@@ -156,22 +156,22 @@ export default function LiveStream() {
       )}
 
       <div className="overflow-hidden rounded-xl border border-border">
-        <table className="w-full text-left text-sm">
+        <table className="w-full text-left text-xs">
           <thead>
             <tr className="border-b border-border bg-surface">
-              <th className="px-4 py-3 font-medium text-muted">Tenant</th>
-              <th className="px-4 py-3 font-medium text-muted">Platform</th>
-              <th className="px-4 py-3 font-medium text-muted">Event</th>
-              <th className="hidden px-4 py-3 font-medium text-muted sm:table-cell">
+              <th className="px-2 py-1.5 font-medium text-muted">Tenant</th>
+              <th className="px-2 py-1.5 font-medium text-muted">Platform</th>
+              <th className="px-2 py-1.5 font-medium text-muted">Event</th>
+              <th className="hidden px-2 py-1.5 font-medium text-muted sm:table-cell">
                 Session
               </th>
-              <th className="hidden px-4 py-3 font-medium text-muted md:table-cell">
+              <th className="hidden px-2 py-1.5 font-medium text-muted md:table-cell">
                 Body
               </th>
-              <th className="px-4 py-3 font-medium text-muted">
+              <th className="px-2 py-1.5 font-medium text-muted">
                 Date
               </th>
-              <th className="px-4 py-3 font-medium text-muted">
+              <th className="px-2 py-1.5 font-medium text-muted">
                 Time
               </th>
             </tr>
@@ -196,13 +196,13 @@ export default function LiveStream() {
                   onClick={() => setSelectedEvent(event)}
                   className="border-b border-border last:border-0 cursor-pointer transition-colors hover:bg-surface-hover"
                 >
-                  <td className="px-4 py-3 font-mono text-xs text-muted">
+                  <td className="px-2 py-1.5 font-mono text-muted">
                     {event.tenant_slug}
                   </td>
-                  <td className="px-4 py-3 text-xs text-muted">
+                  <td className="px-2 py-1.5 text-muted">
                     {platformLabel(event.platform)}
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-2 py-1.5">
                     <span
                       className={`font-medium ${
                         eventColors[event.event_name] || "text-foreground"
@@ -211,16 +211,18 @@ export default function LiveStream() {
                       {formatEventName(event.event_name)}
                     </span>
                   </td>
-                  <td className="hidden px-4 py-3 font-mono text-xs text-muted sm:table-cell">
+                  <td className="hidden px-2 py-1.5 font-mono text-muted sm:table-cell">
                     {event.session_id?.slice(0, 8)}...
                   </td>
-                  <td className="hidden px-4 py-3 font-mono text-xs text-muted md:table-cell whitespace-pre-wrap break-words">
-                    {JSON.stringify(event)}
+                  <td className="hidden px-2 py-1.5 font-mono text-muted md:table-cell">
+                    <pre className="whitespace-pre-wrap break-words m-0 line-clamp-3">
+                      {typeof event.raw_event === "string" ? event.raw_event : JSON.stringify(event.raw_event, null, 2)}
+                    </pre>
                   </td>
-                  <td className="px-4 py-3 text-xs text-muted whitespace-nowrap">
+                  <td className="px-2 py-1.5 text-muted whitespace-nowrap">
                     {formatDate(event.event_timestamp)}
                   </td>
-                  <td className="px-4 py-3 text-xs text-muted whitespace-nowrap">
+                  <td className="px-2 py-1.5 text-muted whitespace-nowrap">
                     {formatTime(event.event_timestamp)}
                   </td>
                 </tr>
